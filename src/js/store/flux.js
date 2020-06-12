@@ -58,6 +58,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("flux.addContact");
 				const store = getStore();
 
+				contact.id = Math.floor(Math.random() * 9999999999);
+				console.log("contact", contact);
 				console.log(store.contacts);
 				let contacts = store.contacts;
 				if (!contacts) contacts = [contact];
@@ -77,6 +79,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log("newContacts", newContacts);
 				setStore({ contacts: newContacts });
 				console.log("store.contacts", store.contacts);
+			},
+
+			editContact: contact => {
+				console.log("flux.editContact");
+				console.log(contact);
+				const store = getStore();
+				console.log("store.contacts", store.contacts);
+				let newContacts = store.contacts.map(c => {
+					if (c.id == contact.id) {
+						return contact;
+					}
+				});
+				console.log("newContacts", newContacts);
+				setStore({ contacts: newContacts });
 			}
 		}
 	};

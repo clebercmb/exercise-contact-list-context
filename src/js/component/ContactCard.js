@@ -2,13 +2,18 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
+import { BrowserRouter } from "react-router-dom";
+
+import { createBrowserHistory } from "history";
+const history = createBrowserHistory();
 
 export const ContactCard = props => {
 	const [state, setState] = useState({
 		//initialize state here
 	});
-
+	console.log("****ContactCard");
 	console.log(props.data);
+	console.log("history", history);
 
 	return (
 		<li className="list-group-item">
@@ -18,9 +23,10 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<button className="btn">
+						<button className="btn" onClick={() => history.push("/edit/" + props.data.id)}>
 							<i className="fas fa-pencil-alt mr-3" />
 						</button>
+
 						<button className="btn" onClick={() => props.onDelete(props.data)}>
 							<i className="fas fa-trash-alt" />
 						</button>

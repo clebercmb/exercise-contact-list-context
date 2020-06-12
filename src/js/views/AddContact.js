@@ -11,6 +11,7 @@ export const AddContact = () => {
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
 	const [address, setAddress] = useState("");
+	const [mode, setMode] = useState("add");
 
 	useEffect(() => {
 		console.log("Behavior before the component is added to the DOM");
