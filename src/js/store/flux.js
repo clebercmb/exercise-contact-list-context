@@ -81,6 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (c.id == contact.id) {
 						return contact;
 					}
+					return c;
 				});
 				console.log("newContacts", newContacts);
 				setStore({ contacts: newContacts });

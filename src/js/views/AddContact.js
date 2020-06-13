@@ -11,11 +11,11 @@ export const AddContact = props => {
 
 	const [state, setState] = useState({
 		agendaSlug: "clebermb",
-		fullName: "Cleber Miranda",
+		fullName: "",
 		email: "",
 		phone: "",
 		address: "",
-		mode: "add"
+		mode: "Add"
 	});
 
 	const saveValue = e => {
@@ -27,6 +27,24 @@ export const AddContact = props => {
 
 	useEffect(() => {
 		console.log("Behavior before the component is added to the DOM");
+		console.log("props.match.params.id", props.match.params.id);
+
+		if (props.match.params.id !== undefined) {
+			console.log("setting up mode");
+			const contacts = store.contacts;
+			const contact = contacts.find(c => c.id == props.match.params.id);
+			console.log("contact found", contact);
+			setState({
+				...state,
+				id: contact.id,
+				agendaSlug: contact.agenda_slug,
+				fullName: contact.full_name,
+				email: contact.email,
+				phone: contact.phone,
+				address: contact.address,
+				mode: "Edit"
+			});
+		}
 
 		//props.history.push("/");
 	}, []);
@@ -34,7 +52,7 @@ export const AddContact = props => {
 	return (
 		<div className="container">
 			<div>
-				<h1 className="text-center mt-5">Add a new contact</h1>
+				<h1 className="text-center mt-5">{state.mode} contact</h1>
 				<form>
 					<div className="form-group">
 						<label>Full Name</label>
@@ -43,6 +61,7 @@ export const AddContact = props => {
 							className="form-control"
 							placeholder="Full Name"
 							name="fullName"
+							value={state.fullName}
 							onChange={e => {
 								saveValue(e);
 							}}
@@ -55,6 +74,7 @@ export const AddContact = props => {
 							className="form-control"
 							placeholder="Enter email"
 							name="email"
+							value={state.email}
 							onChange={e => {
 								saveValue(e);
 							}}
@@ -67,6 +87,7 @@ export const AddContact = props => {
 							className="form-control"
 							placeholder="Enter phone"
 							name="phone"
+							value={state.phone}
 							onChange={e => {
 								saveValue(e);
 							}}
@@ -79,6 +100,7 @@ export const AddContact = props => {
 							className="form-control"
 							placeholder="Enter address"
 							name="address"
+							value={state.address}
 							onChange={e => {
 								saveValue(e);
 							}}
@@ -88,15 +110,27 @@ export const AddContact = props => {
 						type="button"
 						className="btn btn-primary form-control"
 						onClick={() => {
-							actions.addContact({
-								id: "777",
-								agenda_slug: state.agendaSlug,
-								full_name: state.fullName,
-								email: state.email,
-								phone: state.phone,
-								address: state.address,
-								created_at: "2019-08-15 23:33:42"
-							});
+							if (state.mode == "Add")
+								actions.addContact({
+									id: "777",
+									agenda_slug: state.agendaSlug,
+									full_name: state.fullName,
+									email: state.email,
+									phone: state.phone,
+									address: state.address,
+									created_at: "2019-08-15 23:33:42"
+								});
+							else
+								actions.editContact({
+									id: state.id,
+									agenda_slug: state.agendaSlug,
+									full_name: state.fullName,
+									email: state.email,
+									phone: state.phone,
+									address: state.address,
+									created_at: "2019-08-15 23:33:42"
+								});
+
 							props.history.push("/");
 						}}>
 						save
@@ -111,5 +145,6 @@ export const AddContact = props => {
 };
 
 AddContact.propTypes = {
-	history: PropTypes.object
+	history: PropTypes.object,
+	match: PropTypes.object
 };
