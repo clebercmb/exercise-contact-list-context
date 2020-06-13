@@ -3,17 +3,21 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import MikePhoto from "../../img/m101.jpg";
 import { BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { createBrowserHistory } from "history";
-const history = createBrowserHistory();
+//import { createBrowserHistory } from "history";
+//const history = createBrowserHistory();
+//import history from "./history";
 
-export const ContactCard = props => {
+const ContactCard = props => {
 	const [state, setState] = useState({
 		//initialize state here
 	});
 	console.log("****ContactCard");
 	console.log(props.data);
 	console.log("history", history);
+	//console.log("props.history", props.history);
+	console.log("props.history", props.history);
 
 	return (
 		<li className="list-group-item">
@@ -23,9 +27,13 @@ export const ContactCard = props => {
 				</div>
 				<div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
 					<div className=" float-right">
-						<button className="btn" onClick={() => history.push("/edit/" + props.data.id)}>
+						<button className="btn" onClick={() => props.history.push("/edit/" + props.data.id)}>
 							<i className="fas fa-pencil-alt mr-3" />
 						</button>
+
+						{/* <Link to={"/edit/" + props.data.id}>
+							<i className="fas fa-pencil-alt mr-3" />
+						</Link> */}
 
 						<button className="btn" onClick={() => props.onDelete(props.data)}>
 							<i className="fas fa-trash-alt" />
@@ -74,3 +82,5 @@ ContactCard.propTypes = {
 ContactCard.defaultProps = {
 	onDelete: null
 };
+
+export default withRouter(ContactCard);

@@ -8,10 +8,12 @@ import injectContext from "./store/appContext";
 import { Contacts } from "./views/Contacts.js";
 import { AddContact } from "./views/AddContact.js";
 
+import history from "./component/history";
+
 export const Layout = () => {
 	return (
 		<div>
-			<BrowserRouter>
+			<BrowserRouter history={history}>
 				<div>
 					<Switch>
 						<Route exact path="/index.html" component={Contacts} />

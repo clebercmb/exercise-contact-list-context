@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { ContactCard } from "../component/ContactCard.js";
+import ContactCard from "../component/ContactCard.js";
 import { Modal } from "../component/Modal";
+import PropTypes from "prop-types";
 
 import { Context } from "../store/appContext";
 
 export const Contacts = props => {
+	console.log("Contacts.props.history", props.history);
+
 	const { store, actions } = useContext(Context);
 
 	const [state, setState] = useState({ showModal: false });
@@ -49,10 +52,6 @@ export const Contacts = props => {
 				</p>
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						{/* <ContactCard onDelete={() => setState({ showModal: true })} />
-						<ContactCard />
-						<ContactCard />
-						<ContactCard /> */}
 						{cards}
 					</ul>
 				</div>
@@ -60,4 +59,8 @@ export const Contacts = props => {
 			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
 		</div>
 	);
+};
+
+Contacts.propTypes = {
+	history: PropTypes.object
 };

@@ -1,32 +1,35 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+//import history from "../component/history";
+import PropTypes from "prop-types";
 
-export const AddContact = () => {
+export const AddContact = props => {
 	//const [id, setId] = useState("");
 	const { store, actions } = useContext(Context);
+	console.log("props.history", props.history);
 
-	const [agendaSlug, setAgendaSlug] = useState("clebermb");
-	const [fullName, setFullName] = useState("");
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [address, setAddress] = useState("");
-	const [mode, setMode] = useState("add");
+	const [state, setState] = useState({
+		agendaSlug: "clebermb",
+		fullName: "Cleber Miranda",
+		email: "",
+		phone: "",
+		address: "",
+		mode: "add"
+	});
+
+	const saveValue = e => {
+		setState({
+			...state,
+			[e.target.name]: e.target.value
+		});
+	};
 
 	useEffect(() => {
 		console.log("Behavior before the component is added to the DOM");
 
 		//props.history.push("/");
 	}, []);
-
-	/*id: "900",
-	agenda_slug: "mmayoragenda",
-	full_name: "Antonio Custodio",
-	email: "camila@gmail.com",
-	phone: "7864445566",
-	address: "47568 NW 34ST, 33434 FL, USA",
-	created_at: "2019-08-15 23:33:42"
-*/
 
 	return (
 		<div className="container">
@@ -39,8 +42,9 @@ export const AddContact = () => {
 							type="text"
 							className="form-control"
 							placeholder="Full Name"
+							name="fullName"
 							onChange={e => {
-								setFullName(e.target.value);
+								saveValue(e);
 							}}
 						/>
 					</div>
@@ -50,8 +54,9 @@ export const AddContact = () => {
 							type="email"
 							className="form-control"
 							placeholder="Enter email"
+							name="email"
 							onChange={e => {
-								setEmail(e.target.value);
+								saveValue(e);
 							}}
 						/>
 					</div>
@@ -61,8 +66,9 @@ export const AddContact = () => {
 							type="phone"
 							className="form-control"
 							placeholder="Enter phone"
+							name="phone"
 							onChange={e => {
-								setPhone(e.target.value);
+								saveValue(e);
 							}}
 						/>
 					</div>
@@ -72,25 +78,27 @@ export const AddContact = () => {
 							type="text"
 							className="form-control"
 							placeholder="Enter address"
+							name="address"
 							onChange={e => {
-								setAddress(e.target.value);
+								saveValue(e);
 							}}
 						/>
 					</div>
 					<button
 						type="button"
 						className="btn btn-primary form-control"
-						onClick={() =>
+						onClick={() => {
 							actions.addContact({
 								id: "777",
-								agenda_slug: agendaSlug,
-								full_name: fullName,
-								email: email,
-								phone: phone,
-								address: address,
+								agenda_slug: state.agendaSlug,
+								full_name: state.fullName,
+								email: state.email,
+								phone: state.phone,
+								address: state.address,
 								created_at: "2019-08-15 23:33:42"
-							})
-						}>
+							});
+							props.history.push("/");
+						}}>
 						save
 					</button>
 					<Link className="mt-3 w-100 text-center" to="/">
@@ -100,4 +108,8 @@ export const AddContact = () => {
 			</div>
 		</div>
 	);
+};
+
+AddContact.propTypes = {
+	history: PropTypes.object
 };

@@ -29,15 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					phone: "7864445566",
 					address: "47568 NW 34ST, 33434 FL, USA",
 					created_at: "2019-08-15 23:34:01"
-				},
-				{
-					id: "315",
-					agenda_slug: "mmayoragenda",
-					full_name: "Pepe Mayor",
-					email: "Pepe@gmail.com",
-					phone: "7864445566",
-					address: "47568 NW 34ST, 33434 FL, USA",
-					created_at: "2019-08-15 23:34:01"
 				}
 			]
 		},
