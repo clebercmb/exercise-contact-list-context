@@ -15,21 +15,25 @@ export const Contacts = props => {
 	const [state, setState] = useState({ showModal: false });
 	const [contacts, setContacts] = useState([]);
 
-	useEffect(() => {
-		console.log("Behavior before the component is added to the DOM");
-		actions.fetchContacts();
-		setContacts(store.contacts);
+	//const [storeState, setStoreSate] = useState(store);
 
-		return () => {
-			console.log("Behavior right before the component is removed from the DOM.");
-		};
+	useEffect(() => {
+		console.log("useEffect 1: Behavior before the component is added to the DOM");
+		actions.fetchContacts("https://assets.breatheco.de/apis/fake/contact/agenda/clebermb");
+		console.log("Contacts.useEffect.store.contacts", store.contacts);
 	}, []);
 
+	useEffect(() => {
+		console.log("useEffect 2: Behavior before the component is added to the DOM");
+		console.log("Contacts.useEffect.store.contacts", store.contacts);
+		setContacts(store.contacts);
+	}, [store.contacts]);
+
 	console.log("*****Contacts**");
-	console.log(contacts);
+	console.log("Contacts.contacts", contacts);
+	console.log("Contacts.store.contacts", store.contacts);
 
 	const cards = contacts.map((content, i) => {
-		//return <ContactCard key={i} data={content} onDelete={() => setState({ showModal: true })} />;
 		return (
 			<ContactCard
 				key={i}

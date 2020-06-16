@@ -110,9 +110,10 @@ export const AddContact = props => {
 						type="button"
 						className="btn btn-primary form-control"
 						onClick={() => {
+							let data;
 							if (state.mode == "Add")
-								actions.addContact({
-									id: "777",
+								data = actions.addContact({
+									id: undefined,
 									agenda_slug: state.agendaSlug,
 									full_name: state.fullName,
 									email: state.email,
@@ -121,7 +122,7 @@ export const AddContact = props => {
 									created_at: "2019-08-15 23:33:42"
 								});
 							else
-								actions.editContact({
+								data = actions.editContact({
 									id: state.id,
 									agenda_slug: state.agendaSlug,
 									full_name: state.fullName,
@@ -130,7 +131,7 @@ export const AddContact = props => {
 									address: state.address,
 									created_at: "2019-08-15 23:33:42"
 								});
-
+							console.log("AddContact.data", data);
 							props.history.push("/");
 						}}>
 						save
